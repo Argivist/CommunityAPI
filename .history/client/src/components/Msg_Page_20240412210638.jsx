@@ -513,7 +513,7 @@ FriendButton.propTypes = {
 //create group
 function CreateGroup() {
     const { setOverlap, setOverlapContent } = useMsgRoom();
-    const [ searchValue,setSearchValue] = useState('');
+    const [ setSearchValue] = useState('');
     const [groupname, setGroupName] = useState('');
     const [description, setDescription] = useState('');
     const [foundFriends, setFoundFriends] = useState([]);
@@ -610,7 +610,7 @@ function CreateGroup() {
 // Join Group
 function JoinGroup() {
     const { setOverlap, setOverlapContent } = useMsgRoom();
-    const [searchValue, setSearchValue] = useState('');
+    const [ setSearchValue] = useState('');
     const [foundGroups, setFoundGroups] = useState([]);
     // const [groupname, setGroupName] = useState([]);
     useEffect(() => {
