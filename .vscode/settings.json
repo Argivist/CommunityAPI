@@ -1,0 +1,19 @@
+{
+    "workbench.colorCustomizations": {
+        "minimap.background": "#00000000",
+        "scrollbar.shadow": "#00000000"
+    },
+    "cSpell.words": [
+        "mdata",
+        "messageheader",
+        "mgname",
+        "overlapcontent",
+        "recents",
+        "statmessage",
+        "submessages",
+        "targ",
+        "userroom"
+    ],
+    "appService.defaultWebAppToDeploy": "undefined/subscriptions/b25a9bd1-aa73-44b1-bcc9-3ae38dfc8ba1/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/Cmnty",
+    "appService.deploySubpath": "client"
+}

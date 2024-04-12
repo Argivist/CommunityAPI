@@ -1,0 +1,66 @@
+.chatlist{
+    background-color:rgba(240, 248, 255, 0.272);
+}
+
+
+
+.chatlist .item{
+    width: 100%;
+    border-bottom:2px solid rgba(208, 0, 255, 0.205);
+    display:flex;
+    height:60px;
+    animation: appear_top 0.5s ease forwards;
+}
+.chatlist .item:hover{
+    background-color:rgba(240, 248, 255, 0.393);
+    -webkit-backdrop-filter:blur(0);
+    backdrop-filter:blur(0);
+    transition: ease-in-out 0.5s;
+}
+.chatlist .item img{
+    height:50px;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 2%;
+    border-radius:50px;
+}
+
+.chatlist .item .textasp{
+    display: flex;
+    flex-direction: column;
+    /* position: relative; */
+    overflow: hidden;
+    text-align: left;
+    margin: 0;
+    margin-left: 3%;
+}
+
+.chatlist .item .textasp p,h3{
+    margin: 0;
+    
+
+
+}
+
+.chatlist .item .textasp p,h3::after{
+    content: '';
+    /* position: absolute; */
+    /* background: linear-gradient(transparent,white); */
+}
+.chatlist .item .textasp h3::before{
+    content: '';
+    /* position: absolute; */
+    /* background: linear-gradient(to right,white,transparent); */
+}
+
+.content{
+    overflow:auto;
+}
+
+.toolbox{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width:auto;
+
+}

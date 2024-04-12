@@ -1,0 +1,8 @@
+{
+    "workbench.colorCustomizations": {
+        "minimap.background": "#00000000",
+        "scrollbar.shadow": "#00000000"
+    },
+    "appService.defaultWebAppToDeploy": "undefined/subscriptions/b25a9bd1-aa73-44b1-bcc9-3ae38dfc8ba1/resourceGroups/CommunityAPI-rg/providers/Microsoft.Web/sites/CommunityAPI",
+    "appService.deploySubpath": "."
+}

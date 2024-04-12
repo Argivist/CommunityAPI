@@ -1,0 +1,16 @@
+.messageheader{
+    height: 10%;
+    display: flex;
+    flex-direction: row
+    ;
+}
+
+.messageheader img{
+    height:90%;
+    margin: 1%;
+    border-radius:20px;
+}
+
+.messageheader h3{
+
+}

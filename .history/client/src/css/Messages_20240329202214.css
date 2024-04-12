@@ -1,0 +1,28 @@
+/* Message Section */
+.messageSection{
+display:flex;
+flex-direction: column;
+align-items: left;}
+/* messages */
+.messages{
+    background-color: aqua;
+    width:-moz-fit-content;
+    width: fit-content;
+    max-width: 80%;
+    display: inline-block;
+    overflow-wrap: break-word;
+    margin: 1%;
+}
+/* RElative position */
+.me{}
+.them{}
+/* Props */
+.mgname{}
+.msg{}
+.time{}
+
+
+/* other message type */
+.submessages{} 
+.date{}
+.status{}

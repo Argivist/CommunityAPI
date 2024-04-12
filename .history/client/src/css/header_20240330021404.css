@@ -1,0 +1,10 @@
+.messageheader{
+    height: 10%;
+    display: flex;
+    flex-direction: row
+    ;
+}
+
+.messageheader img{
+    height:100%;
+}

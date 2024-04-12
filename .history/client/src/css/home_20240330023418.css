@@ -1,0 +1,57 @@
+.home{
+    /* background-color:red ; */
+    
+    width: 100vw;
+    height:100vh;
+
+    display: flex;
+    flex-direction: row;
+}
+
+.chatlist{
+    background-color:rgb(56, 0, 224);
+    height:100vh;
+    width: 30vw;
+}
+.messageArea{
+    /* background-color:cadetblue; */
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.messageheader{
+    background-color:rgba(0, 247, 255, 0.037);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom:2px solid rgba(40, 105, 155, 0.505);
+    position:absolute;
+    height:10vh;
+    width:100%;
+    z-index: 3;
+}
+.messageSpace{
+    /* background-color:rgb(0, 255, 115); */
+    display: flex;
+    flex-direction: column;
+    flex-grow:1;
+    height:100vh;
+}
+.messageSection{
+    padding-top: 13%;
+    /* background-color:rgba(226, 43, 43, 0.977); */
+    width: 100%;
+    height: 100vh;
+    flex-grow:1;
+    max-height: 90vh;
+    overflow:auto;
+
+    display: flex;
+}
+.messageForm{
+    
+    width: 100%;
+    height: 10%;
+
+    display: flex;
+
+}

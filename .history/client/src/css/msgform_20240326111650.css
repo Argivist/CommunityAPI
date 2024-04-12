@@ -1,0 +1,17 @@
+input{
+    width:calc(100%-50px);
+    height:70%;
+    flex:1;
+    height: auto;
+    margin: 0.5%;
+    font-size: x-large;
+    border-radius: 50px;
+    border: none;
+    background-color: #f1f1f100;
+    backdrop-filter: blur(10px);
+}
+button{
+    width: 50px;
+    margin: 0.5%;
+    font-size: 1.5em;
+}

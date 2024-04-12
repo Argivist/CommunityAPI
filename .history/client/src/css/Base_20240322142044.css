@@ -1,0 +1,24 @@
+body{
+    /* gradient background */
+    background: linear-gradient(25deg, #5b1d65 0%, #000000 50%,#0dace1 100%)
+}
+
+/* App root */
+#root {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 2rem;
+    text-align: center;
+  }
+
+
+
+  /* Mischelemneous */
+  .hidden{
+    display: none;
+    transition: linear 0.3s;
+}
+.shown{
+    display: block;
+    transition: linear 0.3s;
+}

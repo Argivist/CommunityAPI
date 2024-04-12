@@ -1,0 +1,5 @@
+.hobby-list,.genre-list,.interest-list {
+    columns: 3;
+    list-style-type: none;
+    padding: 0;
+}

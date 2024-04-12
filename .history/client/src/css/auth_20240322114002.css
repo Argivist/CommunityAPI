@@ -1,0 +1,10 @@
+.auth_box{
+    width: 1000px;
+    height: 1000px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #f5f5f522;
+    -webkit-backdrop-filter: blur(10px);
+}

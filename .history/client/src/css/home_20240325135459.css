@@ -1,0 +1,16 @@
+.home{
+    background-color:red ;
+    
+    width: 100vw;
+    height:100vh;
+}
+
+.chatlist{
+    background-color:aquamarine;
+    height:100vh;
+    width: 20vw;
+}
+.messageForm{
+    background-color:blueviolet;
+    width: 100%;
+}

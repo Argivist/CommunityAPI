@@ -1,0 +1,20 @@
+.messsage{
+    width:calc(100%-50px);
+    height:50px;
+    flex:1;
+    height: auto;
+    margin: 0.5%;
+    font-size: x-large;
+    border-radius: 50px;
+    border: none;
+    background-color: #75717196;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+.send{
+    width: 50px;
+    height: 50px;
+    padding: 0.5% 0.5% 0.5% 0.5%;
+    font-size: 1.5em;
+    border-radius: 100%;
+}

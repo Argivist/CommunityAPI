@@ -1,0 +1,23 @@
+.hidden{
+    display: none;
+    opacity: 0;
+    transition: ease-in-out 0.3s;
+}
+.shown{
+    display: block;
+    opacity: 1;
+    transition: ease-in-out 0.3s;
+}
+
+/*  animation */
+@keyframes appear_top {
+    0% {
+        opacity: 0;
+        transform: translateY(100%);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

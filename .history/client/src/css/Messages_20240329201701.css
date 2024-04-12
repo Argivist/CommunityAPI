@@ -1,0 +1,20 @@
+/* Message Section */
+.messageSection{
+display:flex;
+flex-direction: column;
+}
+/* messages */
+.messages{}
+/* RElative position */
+.me{}
+.them{}
+/* Props */
+.mgname{}
+.msg{}
+.time{}
+
+
+/* other message type */
+.submessages{} 
+.date{}
+.status{}

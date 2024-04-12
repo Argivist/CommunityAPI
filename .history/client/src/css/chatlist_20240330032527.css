@@ -1,0 +1,38 @@
+.chatlist{
+    background-color:rgba(240, 248, 255, 0.272);
+}
+
+
+
+.chatlist .item{
+    width: 100%;
+    border-bottom:2px solid rgba(208, 0, 255, 0.205);
+    display:flex;
+    height:60px;
+
+}
+
+.chatlist .item img{
+    height:50px;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 2%;
+}
+
+.chatlist .item .textasp{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+}
+
+.chatlist .item .textasp p,h3{
+    margin: 0;
+    content: '';
+    position: absolute;
+
+}
+
+.chatlist .item .textasp p,h3::after{
+
+}

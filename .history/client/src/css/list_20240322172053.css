@@ -1,0 +1,5 @@
+.hobby-list {
+    columns: 3;
+    list-style-type: none;
+    padding: 0;
+}

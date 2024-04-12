@@ -1,0 +1,21 @@
+.hidden{
+    display: none;
+    animation: appear_top 0.5s ease forwards;
+}
+.shown{
+    display: block;
+    animation: linear-gradient 0.5s ease forwards;
+}
+
+/*  animation */
+@keyframes appear_top {
+    0% {
+        opacity: 0;
+        transform: translateY(100%);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

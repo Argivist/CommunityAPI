@@ -1,0 +1,35 @@
+.home{
+    /* background-color:red ; */
+    
+    width: 100vw;
+    height:100vh;
+
+    display: flex;
+    flex-direction: row;
+}
+
+.chatlist{
+    background-color:aquamarine;
+    height:100vh;
+    width: 30vw;
+}
+.messageSpace{
+    background-color:blue;
+    
+    flex:1;
+
+}
+.messageArea{
+    /* background-color:cadetblue; */
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.messageForm{
+    background-color:blueviolet;
+    width: 100%;
+    height: 10%;
+    display: flex;
+    margin: 10;
+}

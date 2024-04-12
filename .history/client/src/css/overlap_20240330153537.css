@@ -1,0 +1,39 @@
+.overlap{
+    top:0;
+    left: 0;
+    position: absolute;
+    background-color:rgba(0, 0, 0, 0.516);
+    -webkit-backdrop-filter:blur(5px);
+    backdrop-filter:blur(5px);
+    width: 100vw;
+    height: 100vh;
+
+    
+    align-items:center;
+    justify-content: center;
+    z-index: 7;
+    display:flex;
+
+}
+
+.popup_window{
+    /* appearance */
+    border:2px solid rgba(107, 29, 143, 0.304);
+    border-radius:5px;
+    
+    width:fit-content;
+    width:-moz-fit-content;
+    background:rgba(148, 64, 161, 0.274);
+}
+
+.titlebar{
+    /* width:1000px; */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-bottom:2px solid purple;
+}
+
+.titlebar button{
+    background:none;
+}

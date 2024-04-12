@@ -1,0 +1,28 @@
+.message{
+    width:calc(100%-50px);
+    /* height:40px; */
+    flex:1;
+    height: auto;
+    margin: 0.5%;
+    font-size: x-large;
+    border-radius: 50px;
+    border: none;
+    background-color: #75717196;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+.send{
+    transition: 0.5s;
+    width: 50px;
+    height: 50px;
+    padding: 0.5% 0.5% 0.5% 0.5%;
+    font-size: 1.5em;
+    border-radius: 100%;
+    color: purple;
+    background:radial-gradient(circle, rgba(60, 255, 0, 0.377), rgb(255, 0, 221));
+}
+.send:hover{
+    transition: 0.5s;
+    background:green;
+    color: white;
+}

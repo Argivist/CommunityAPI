@@ -1,0 +1,22 @@
+/* Message Section */
+.messageSection{
+display:flex;
+flex-direction: column;
+align-items: left;}
+/* messages */
+.messages{
+    background-color: aqua;
+}
+/* RElative position */
+.me{}
+.them{}
+/* Props */
+.mgname{}
+.msg{}
+.time{}
+
+
+/* other message type */
+.submessages{} 
+.date{}
+.status{}
