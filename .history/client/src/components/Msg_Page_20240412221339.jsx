@@ -240,17 +240,6 @@ const Toolbox = () => {
                         }
                     }
                 >📝</button>
-                {/*Delete Account Permanently*/}
-                <button className="tools"
-                    onClick={
-                        () => {
-                            setOverlapContent(
-                                <DeleteAccount />
-                            )
-                            setOverlap(true);
-                        }
-                    }
-                >🗑️</button>
                 <button className="tools"
                     onClick={
                         () => {
@@ -264,7 +253,6 @@ const Toolbox = () => {
                         }
                     }
                 >🗺️</button>
-
                 <button className="tools" onClick={() => {
                     localStorage.removeItem('token');
                     window.location.href = "";
@@ -785,36 +773,6 @@ function UpdateNickName() {
                         });
                     }
                 }>Update</button>
-            </div>
-        </>
-    );
-}
-
-//Delete Account
-function DeleteAccount() {
-    const { setOverlap, setOverlapContent } = useMsgRoom();
-    return (
-        <>
-            <div id="deleteaccount">
-                <p>Are you sure you want to delete your account?</p>
-                <button onClick={
-                    () => {
-                        socket.emit("delete_account", localStorage.getItem("token"));
-                        socket.on("account_status", (data) => {
-                            if (data.status === "deleted") {
-                                setOverlapContent(
-                                    <Status statmessage="Account deleted" />
-                                );
-                                setOverlap(true);
-                            } else if (data.status === "failed") {
-                                setOverlapContent(
-                                    <Status statmessage="Account deletion failed" />
-                                );
-                                setOverlap(true);
-                            }
-                        });
-                    }
-                }>Delete</button>
             </div>
         </>
     );
