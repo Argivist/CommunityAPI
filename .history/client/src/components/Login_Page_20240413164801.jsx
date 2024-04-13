@@ -1,4 +1,4 @@
-
+import bcrypt from 'bcryptjs';
 import { useState, useEffect, useContext, createContext } from "react";
 import PropTypes from 'prop-types';
 import io from 'socket.io-client';
@@ -32,6 +32,7 @@ const UserProvider = ({ children }) => {
   const [user, setUser] = useState("");
   const [pwd, setPwd] = useState("");
   const [fname, setFname] = useState("");
+  const [pnum, setPNum] =useState("");
   const [lname, setLname] = useState("");
   const [nname, setNname] = useState("");
   const [email, setEmail] = useState("");
@@ -57,7 +58,7 @@ const UserProvider = ({ children }) => {
   }
 
   return (
-    <userContext.Provider value={{ user, setUser, pwd, setPwd, fname, setFname, lname, setLname, nname, setNname, email, setEmail, hobby, setHobby, interest, setInterest, genre, setGenre, register, regSuccess, setRegSuccess }}>
+    <userContext.Provider value={{ user, setUser, pwd, setPwd, fname, setFname, lname,pnum,setPNum, setLname, nname, setNname, email, setEmail, hobby, setHobby, interest, setInterest, genre, setGenre, register, regSuccess, setRegSuccess }}>
       {children}
     </userContext.Provider>
   );
@@ -252,7 +253,7 @@ Security.propTypes = {
 function RegName({ handleDivChange }) {
   const [isVisible, setVisible] = useState(false);
 
-  const { fname, setFname, lname, setLname, nname, setNname, email, setEmail } = useUser();
+  const { fname, setFname, lname, setLname, nname, setNname, email,pnum,setPNum, setEmail } = useUser();
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -307,6 +308,11 @@ function RegName({ handleDivChange }) {
       <input type="email" name="email" placeholder="email" onChange={
         (e) => { setEmail(e.target.value); }
       } />
+      <input type="text" name="phone Number" placeholder="phone" onChange={
+        (e)=>{
+        setPNum(e.target.value);
+      }
+    } />
 
     </div>
   )

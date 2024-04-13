@@ -2,7 +2,6 @@ const express = require('express');
 const crypto = require('crypto');
 const app = express();
 const PORT = process.env.PORT || 4001;
-// const PORT =  4000;
 const http = require('http');
 const cors = require('cors');
 const { Server } = require('socket.io');
@@ -28,15 +27,11 @@ const db_conf = {
 
 };
 
-const key = 'supersecretkey123';
 // Encryption
 function encryptData(data, key) {
-    if (typeof data !== 'string' || typeof key !== 'string') {
-        throw new Error('Data and key must be of type string');
-    }
-    const cipher = crypto.createCipher('aes-256-cbc', key);
-    let encryptedData = cipher.update(data, 'utf-8', 'hex');
-    encryptedData += cipher.final('hex');
+    const key= crypto.createCipher('aes-256-cbc', key);
+    let encryptedData = key.update(data, 'utf-8', 'hex');
+    encryptedData += key.final('hex');
     return encryptedData;
 }
 
@@ -72,8 +67,8 @@ app.get('/', (req, res) => {
 
 const io = new Server(server, {
     cors: {
-        // origin: "http://localhost:5173",
-        origin:'https://communitycircle.azurewebsites.net/',
+        origin: "http://localhost:5173",
+        // origin:'https://communitycircle.azurewebsites.net/',
         methods: ["GET", "POST"],
     },
 });
@@ -90,7 +85,7 @@ io.on("connection", (socket) => {
             }
             else {
                 if (result.length > 0) {
-                    if (result[0].pwd == encryptData(data.pwd,key)) {
+                    if (result[0].pwd == encryptData(data.pwd)) {
                         console.log("🔑:A user " + data.uname + "logged in" + socket.id);
                         //Assigning session in dictionary
 
@@ -110,42 +105,26 @@ io.on("connection", (socket) => {
         );
     });
 
-    let registrationInProgress = false;
+
     // register
     socket.on("register", (data) => {
-            
-    if (registrationInProgress) {
-        
-        socket.emit("rstatus", { value: "pending" });
-        return;
-    }
-
-    
-    registrationInProgress = true;
         // authenticate
         console.log("🔑:A user " + data.uname + "registered" + socket.id);
         console.log(data);
         db.query('Select * from user where email=? or nickname=? ', [data.email, data.uname], (err, result) => {
             if (!err) {
                 if (result.length == 0) {
-                    console.log(data.pwd);
-                    db.query('Insert into user (`fname`,`lname`,`nickname`,`email`,`pwd`,`hobby`,`interest`,`genre`) values (?,?,?,?,?,?,?,?)', [data.fname, data.lname, data.nname, data.email, encryptData(data.pwd,key), data.hobby, data.interest, data.genre], (err, result) => {
+                    db.query('Insert into user (`fname`,`lname`,`nickname`,`email`,`pwd`,`hobby`,`interest`,`genre`) values (?,?,?,?,?,?,?,?)', [data.fname, data.lname, data.nname, data.email, data.pwd, data.hobby, data.interest, data.genre], (err, result) => {
                         if (err) {
                             console.log(err);
                         }
                         else {
                             socket.emit("rstatus", { value: "success" });
-                            
                         }
-                        registrationInProgress = false;
                     });
                 } else {
                     socket.emit("rstatus", { value: "failed" });
-                    registrationInProgress = false;
                 }
-            }else{
-                console.log(err);
-                registrationInProgress = false;
             }
         });
 
@@ -195,7 +174,7 @@ io.on("connection", (socket) => {
     socket.on("find", (data) => {
         let users = [];
         let uid = [];
-        db.query('SELECT * FROM user WHERE (nickname LIKE ? OR email LIKE ? OR fname LIKE ? OR lname LIKE ?) AND uid != ?', ['%' + data.val + '%', '%' + data.val + '%', '%' + data.val + '%', '%' + data.val + '%',users[data.token]], (err, result) => {
+        db.query('Select * from user where nickname like ? or email like ? or fname like ? or lname like ?', ['%' + data + '%', '%' + data + '%', '%' + data + '%', '%' + data + '%'], (err, result) => {
             if (err) {
                 console.log(err);
             }

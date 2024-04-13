@@ -13,7 +13,7 @@ import './../css/overlap.css';
 
 // const socket = io.connect('http://localhost:4000');
 
-const socket = io.connect('https://circleapi.azurewebsites.net');
+const socket = io.connect('https://circleapi.azurewebsites.net/');
 //registering the socket id with the server
 socket.emit("reconnect", socket.id);
 socket.on("reconnected", (data) => {
@@ -462,7 +462,7 @@ function FindFriend() {
     const handleSearchChange = (event) => {
         const { value } = event.target;
         setSearchValue(value);
-        socket.emit('find', {val:value,token:localStorage.getItem("token")});
+        socket.emit('find', value);
     };
     return (
         <>
@@ -564,7 +564,7 @@ function CreateGroup() {
     const handleSearchChange = (event) => {
         const { value } = event.target;
         setSearchValue(value);
-        socket.emit('find', {val:value,token:localStorage.getItem("token")});
+        socket.emit('find', value);
     };
     return (
         <>

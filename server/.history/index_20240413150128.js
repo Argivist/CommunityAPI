@@ -1,8 +1,8 @@
 const express = require('express');
 const crypto = require('crypto');
 const app = express();
-const PORT = process.env.PORT || 4001;
-// const PORT =  4000;
+// const PORT = process.env.PORT || 4001;
+const PORT =  4000;
 const http = require('http');
 const cors = require('cors');
 const { Server } = require('socket.io');
@@ -72,8 +72,8 @@ app.get('/', (req, res) => {
 
 const io = new Server(server, {
     cors: {
-        // origin: "http://localhost:5173",
-        origin:'https://communitycircle.azurewebsites.net/',
+        origin: "http://localhost:5173",
+        // origin:'https://communitycircle.azurewebsites.net/',
         methods: ["GET", "POST"],
     },
 });
@@ -195,7 +195,7 @@ io.on("connection", (socket) => {
     socket.on("find", (data) => {
         let users = [];
         let uid = [];
-        db.query('SELECT * FROM user WHERE (nickname LIKE ? OR email LIKE ? OR fname LIKE ? OR lname LIKE ?) AND uid != ?', ['%' + data.val + '%', '%' + data.val + '%', '%' + data.val + '%', '%' + data.val + '%',users[data.token]], (err, result) => {
+        db.query('Select * from user where nickname like ? or email like ? or fname like ? or lname like ?', ['%' + data + '%', '%' + data + '%', '%' + data + '%', '%' + data + '%'], (err, result) => {
             if (err) {
                 console.log(err);
             }

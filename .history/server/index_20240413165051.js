@@ -1,8 +1,8 @@
 const express = require('express');
 const crypto = require('crypto');
 const app = express();
-const PORT = process.env.PORT || 4001;
-// const PORT =  4000;
+// const PORT = process.env.PORT || 4001;
+const PORT =  4000;
 const http = require('http');
 const cors = require('cors');
 const { Server } = require('socket.io');

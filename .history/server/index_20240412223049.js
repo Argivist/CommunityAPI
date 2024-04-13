@@ -1,8 +1,6 @@
 const express = require('express');
-const crypto = require('crypto');
 const app = express();
-const PORT = process.env.PORT || 4001;
-// const PORT =  4000;
+const PORT = 4000;
 const http = require('http');
 const cors = require('cors');
 const { Server } = require('socket.io');
@@ -20,39 +18,24 @@ const mysql = require('mysql');
 // };
 
 const db_conf = {
-    host: 'argnetql.mysql.database.azure.com',
+    host: 'https://argnetql.mysql.database.azure.com;',
     user: 'admin12',
-    password: 'Qwertyuiop12345.',
+    password:'Qwertyuiop12345.',
     database: 'Community',
-    port: 3306,
-
+    port:3306,
 };
-
-const key = 'supersecretkey123';
-// Encryption
-function encryptData(data, key) {
-    if (typeof data !== 'string' || typeof key !== 'string') {
-        throw new Error('Data and key must be of type string');
-    }
-    const cipher = crypto.createCipher('aes-256-cbc', key);
-    let encryptedData = cipher.update(data, 'utf-8', 'hex');
-    encryptedData += cipher.final('hex');
-    return encryptedData;
-}
-
-
 
 const db = mysql.createConnection(db_conf);
 //Promisify mysql
 function queryAsync(sql, args) {
     return new Promise((resolve, reject) => {
-        db.query(sql, args, (err, rows) => {
-            if (err)
-                return reject(err);
-            resolve(rows);
-        });
+      db.query(sql, args, (err, rows) => {
+        if (err)
+          return reject(err);
+        resolve(rows);
+      });
     });
-}
+  }
 db.connect((err) => {
     if (err) {
         console.log(err);
@@ -65,11 +48,6 @@ db.connect((err) => {
 
 const server = http.createServer(app);
 
-app.get('/', (req, res) => {
-    res.send('Server is up');
-}
-);
-
 const io = new Server(server, {
     cors: {
         // origin: "http://localhost:5173",
@@ -80,7 +58,7 @@ const io = new Server(server, {
 
 io.on("connection", (socket) => {
     console.log('⚡:' + socket.id + ' user just connected!');
-
+    
     //Login
     socket.on("login", (data) => {
         // authenticate
@@ -90,7 +68,7 @@ io.on("connection", (socket) => {
             }
             else {
                 if (result.length > 0) {
-                    if (result[0].pwd == encryptData(data.pwd,key)) {
+                    if (result[0].pwd == data.pwd) {
                         console.log("🔑:A user " + data.uname + "logged in" + socket.id);
                         //Assigning session in dictionary
 
@@ -110,42 +88,18 @@ io.on("connection", (socket) => {
         );
     });
 
-    let registrationInProgress = false;
+
     // register
     socket.on("register", (data) => {
-            
-    if (registrationInProgress) {
-        
-        socket.emit("rstatus", { value: "pending" });
-        return;
-    }
-
-    
-    registrationInProgress = true;
         // authenticate
         console.log("🔑:A user " + data.uname + "registered" + socket.id);
         console.log(data);
-        db.query('Select * from user where email=? or nickname=? ', [data.email, data.uname], (err, result) => {
-            if (!err) {
-                if (result.length == 0) {
-                    console.log(data.pwd);
-                    db.query('Insert into user (`fname`,`lname`,`nickname`,`email`,`pwd`,`hobby`,`interest`,`genre`) values (?,?,?,?,?,?,?,?)', [data.fname, data.lname, data.nname, data.email, encryptData(data.pwd,key), data.hobby, data.interest, data.genre], (err, result) => {
-                        if (err) {
-                            console.log(err);
-                        }
-                        else {
-                            socket.emit("rstatus", { value: "success" });
-                            
-                        }
-                        registrationInProgress = false;
-                    });
-                } else {
-                    socket.emit("rstatus", { value: "failed" });
-                    registrationInProgress = false;
-                }
-            }else{
+        db.query('Insert into user (`fname`,`lname`,`nickname`,`email`,`pwd`,`hobby`,`interest`,`genre`) values (?,?,?,?,?,?,?,?)', [data.fname, data.lname, data.nname, data.email, data.pwd, data.hobby, data.interest, data.genre], (err, result) => {
+            if (err) {
                 console.log(err);
-                registrationInProgress = false;
+            }
+            else {
+                socket.emit("rstatus", { value: "success" });
             }
         });
 
@@ -155,23 +109,23 @@ io.on("connection", (socket) => {
     //Getting user chat rooms
     socket.on("get_rooms", async (data) => {
         console.log("🏠:Getting rooms for " + users[data] + data);
-
+    
         try {
             const userRoomQuery = 'SELECT * FROM userroom WHERE uid=?';
             const userRoomResult = await queryAsync(userRoomQuery, [users[data]]);
-
+    
             let rooms = { rooms: [], recents: [], names: [] };
-
+    
             for (const room of userRoomResult) {
                 rooms.rooms.push(room.rid);
                 rooms.recents.push("private");
-
+    
                 if (room.name !== null) {
                     rooms.names.push(room.name);
                 } else {
                     const usersInRoomQuery = 'SELECT * FROM userroom WHERE rid=?';
                     const usersInRoomResult = await queryAsync(usersInRoomQuery, [room.rid]);
-
+    
                     for (const user of usersInRoomResult) {
                         if (user.uid !== users[data]) {
                             const userQuery = 'SELECT * FROM user WHERE uid=?';
@@ -182,7 +136,7 @@ io.on("connection", (socket) => {
                     }
                 }
             }
-
+    
             console.log(rooms);
             socket.emit("rooms", rooms);
             console.log("🏠:Rooms sent to " + users[data] + data);
@@ -190,12 +144,12 @@ io.on("connection", (socket) => {
             console.error(error);
         }
     });
-
+    
     //find someone
     socket.on("find", (data) => {
         let users = [];
         let uid = [];
-        db.query('SELECT * FROM user WHERE (nickname LIKE ? OR email LIKE ? OR fname LIKE ? OR lname LIKE ?) AND uid != ?', ['%' + data.val + '%', '%' + data.val + '%', '%' + data.val + '%', '%' + data.val + '%',users[data.token]], (err, result) => {
+        db.query('Select * from user where nickname like ? or email like ? or fname like ? or lname like ?', ['%' + data + '%', '%' + data + '%', '%' + data + '%', '%' + data + '%'], (err, result) => {
             if (err) {
                 console.log(err);
             }
@@ -230,24 +184,24 @@ io.on("connection", (socket) => {
                     db.query('INSERT INTO room (`rname`,`rdescription`) VALUES (?,?)', [data, "Friends"], (err, insertRoomResult) => {
                         let roomId = insertRoomResult.insertId;
                         if (!err) {
-
-
-                            db.query('INSERT INTO userroom (`uid`,`rid`) VALUES (?,?)', [users[id], roomId], (err, insertUserRoomResult) => {
-                                if (!err) {
-                                    console.log(socket.id + " created room " + roomId)
-                                    db.query('INSERT INTO userroom (`uid`,`rid`) VALUES (?,?)', [data, roomId], (err, insertSecondUserRoomResult) => {
-                                        if (!err) {
-                                            socket.emit("room_status", { status: "created", value: roomId });
-                                            console.log("🏠" + socket.id + users[socket.id] + " created room " + roomId);
-                                        } else {
-                                            console.log(err);
-                                        }
-                                    });
-                                } else {
-                                    console.log(err);
-                                }
-                            });
-
+                            
+                                
+                                db.query('INSERT INTO userroom (`uid`,`rid`) VALUES (?,?)', [users[id], roomId], (err, insertUserRoomResult) => {
+                                    if (!err) {
+                                        console.log(socket.id + " created room " + roomId)
+                                        db.query('INSERT INTO userroom (`uid`,`rid`) VALUES (?,?)', [data, roomId], (err, insertSecondUserRoomResult) => {
+                                            if (!err) {
+                                                socket.emit("room_status", { status: "created", value: roomId });
+                                                console.log("🏠" + socket.id + users[socket.id] + " created room " + roomId);
+                                            } else {
+                                                console.log(err);
+                                            }
+                                        });
+                                    } else {
+                                        console.log(err);
+                                    }
+                                });
+                        
                         } else {
                             console.log(err);
                         }
@@ -289,7 +243,7 @@ io.on("connection", (socket) => {
             }
             else {
                 result.forEach((message) => {
-                    messages.push({ username: Object.keys(users).find(key => users[key] === message.uid), room: message.rid, message: message.mcontent, time: message.mdate, sender: message.nickname });
+                    messages.push({ username: Object.keys(users).find(key => users[key] === message.uid), room: message.rid, message: message.mcontent, time: message.mdate,sender:message.nickname });
                 });
                 socket.emit("messages", messages);
 
@@ -324,7 +278,7 @@ io.on("connection", (socket) => {
             }
         });
     });
-
+    
 
     //Send message
     socket.on("send_message", (data) => {
@@ -342,7 +296,7 @@ io.on("connection", (socket) => {
         db.query('Select * from user where uid=?', [users[data.username]], (err, result) => {
             if (!err) {
                 console.log(result);
-                let d = { username: data.username, room: data.room, message: data.message, time: new Date(), sender: result[0].nickname }
+                let d={username:data.username,room:data.room,message:data.message,time:new Date(),sender:result[0].nickname}
                 socket.to(data.room).emit("receive_message", d);
             }
         });
@@ -491,7 +445,7 @@ io.on("connection", (socket) => {
 });//check if someone is connected to the server
 
 server.listen(PORT, () => {
-    // io.emit('dejoin', 'Server is up');
+    io.emit('dejoin', 'Server is up');
     console.log('Server listening on ' + PORT);
-
+    
 });

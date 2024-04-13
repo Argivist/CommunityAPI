@@ -1,4 +1,4 @@
-
+import bcrypt from 'bcryptjs';
 import { useState, useEffect, useContext, createContext } from "react";
 import PropTypes from 'prop-types';
 import io from 'socket.io-client';
@@ -10,8 +10,8 @@ import './../css/auth.css';
 
 ///Components///
 
-// const socket = io.connect('http://localhost:4000');
-const socket = io.connect('https://circleapi.azurewebsites.net');
+const socket = io.connect('http://localhost:4001');
+// const socket = io.connect('https://circleapi.azurewebsites.net/');
 //States
 // Context for managing room state
 const userContext = createContext();

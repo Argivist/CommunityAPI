@@ -1,4 +1,4 @@
-
+import bcrypt from 'bcryptjs';
 import { useState, useEffect, useContext, createContext } from "react";
 import PropTypes from 'prop-types';
 import io from 'socket.io-client';
@@ -10,8 +10,8 @@ import './../css/auth.css';
 
 ///Components///
 
-// const socket = io.connect('http://localhost:4000');
-const socket = io.connect('https://circleapi.azurewebsites.net');
+const socket = io.connect('http://localhost:4000');
+// const socket = io.connect('https://circleapi.azurewebsites.net');
 //States
 // Context for managing room state
 const userContext = createContext();
@@ -32,6 +32,7 @@ const UserProvider = ({ children }) => {
   const [user, setUser] = useState("");
   const [pwd, setPwd] = useState("");
   const [fname, setFname] = useState("");
+  const [pnum, setPNum] =useState("");
   const [lname, setLname] = useState("");
   const [nname, setNname] = useState("");
   const [email, setEmail] = useState("");
@@ -57,7 +58,7 @@ const UserProvider = ({ children }) => {
   }
 
   return (
-    <userContext.Provider value={{ user, setUser, pwd, setPwd, fname, setFname, lname, setLname, nname, setNname, email, setEmail, hobby, setHobby, interest, setInterest, genre, setGenre, register, regSuccess, setRegSuccess }}>
+    <userContext.Provider value={{ user, setUser, pwd, setPwd, fname, setFname, lname,pnum,setPNum setLname, nname, setNname, email, setEmail, hobby, setHobby, interest, setInterest, genre, setGenre, register, regSuccess, setRegSuccess }}>
       {children}
     </userContext.Provider>
   );

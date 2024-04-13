@@ -1,8 +1,8 @@
 const express = require('express');
 const crypto = require('crypto');
 const app = express();
-const PORT = process.env.PORT || 4001;
-// const PORT =  4000;
+// const PORT = process.env.PORT || 4001;
+const PORT =  4000;
 const http = require('http');
 const cors = require('cors');
 const { Server } = require('socket.io');
@@ -72,8 +72,8 @@ app.get('/', (req, res) => {
 
 const io = new Server(server, {
     cors: {
-        // origin: "http://localhost:5173",
-        origin:'https://communitycircle.azurewebsites.net/',
+        origin: "http://localhost:5173",
+        // origin:'https://communitycircle.azurewebsites.net/',
         methods: ["GET", "POST"],
     },
 });
