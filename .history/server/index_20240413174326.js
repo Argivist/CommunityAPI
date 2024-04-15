@@ -194,15 +194,13 @@ io.on("connection", (socket) => {
     socket.on("find", (data) => {
         let users = [];
         let uid = [];
-        db.query('SELECT * FROM user WHERE nickname LIKE ? OR email LIKE ? OR fname LIKE ? OR lname LIKE ?', ['%' + data.val + '%', '%' + data.val + '%', '%' + data.val + '%', '%' + data.val + '%'], (err, result) => {
-            console.log(users[data.token] + " " + data.val);
+        db.query('SELECT * FROM user WHERE (nickname LIKE ? OR email LIKE ? OR fname LIKE ? OR lname LIKE ?) AND uid != ?', ['%' + data.val + '%', '%' + data.val + '%', '%' + data.val + '%', '%' + data.val + '%',users[data.token]], (err, result) => {
             if (err) {
                 console.log(err);
             }
             else {
                 if (result.length > 0) {
                     result.forEach((user) => {
-                        console.log(user);
                         users.push(user.nickname);
                         uid.push(user.uid);
 
@@ -494,6 +492,6 @@ io.on("connection", (socket) => {
 server.listen(PORT, () => {
     // io.emit('dejoin', 'Server is up');
     console.log('Server listening on ' + PORT);
-    
+    console.log(encryptData('d57eb186ff97061feef625b315d1e7c5c92e455082f3909d5833624c26ce0646', key));
 
 });

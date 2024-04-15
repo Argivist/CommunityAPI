@@ -194,15 +194,13 @@ io.on("connection", (socket) => {
     socket.on("find", (data) => {
         let users = [];
         let uid = [];
-        db.query('SELECT * FROM user WHERE nickname LIKE ? OR email LIKE ? OR fname LIKE ? OR lname LIKE ?', ['%' + data.val + '%', '%' + data.val + '%', '%' + data.val + '%', '%' + data.val + '%'], (err, result) => {
-            console.log(users[data.token] + " " + data.val);
+        db.query('SELECT * FROM user WHERE (nickname LIKE ? OR email LIKE ? OR fname LIKE ? OR lname LIKE ?) AND uid != ?', ['%' + data.val + '%', '%' + data.val + '%', '%' + data.val + '%', '%' + data.val + '%', users[data.token]], (err, result) => {
             if (err) {
                 console.log(err);
             }
             else {
                 if (result.length > 0) {
                     result.forEach((user) => {
-                        console.log(user);
                         users.push(user.nickname);
                         uid.push(user.uid);
 
