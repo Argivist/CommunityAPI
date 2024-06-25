@@ -1,7 +1,7 @@
 <?php
 $host = "http://awt.eastus.cloudapp.azure.com";
-$user = "root";
-$pass = "";
+$user = "*******";
+$pass = "*******";
 $db = "Fruits";
 $conn = mysqli_connect($host, $user, $pass, $db);   
 
